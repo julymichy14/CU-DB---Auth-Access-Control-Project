@@ -15,7 +15,7 @@
    ```bash
    make sql USER=smith_professor
    ```
-4. **See the DENY at work** - type the two statements from section 7 of the main README:
+4. **See the DENY at work** - type the two statements from [DENY explained](../docs/access-control-guide.md#deny-explained):
    ```sql
    SELECT code, title FROM courses;   -- works: GRANT SELECT ON university.* TO professor_role
    SELECT * FROM financial_records;
@@ -35,7 +35,7 @@ Five short, runnable lessons. Each `.sql` file is ordinary SQL plus a few commen
 lines the runner understands (`-- @as`, `-- @expect`, `-- @why`, ...; the full list is at the top of
 [app/sqlrunner.py](../app/sqlrunner.py)). Every statement really runs on the MariaDB 13.1 server,
 **as the user named by the last `-- @as` line**, over a verified TLS connection. `dba` is the run's
-short-lived administrator (see section 8 of the main README); the demo accounts get random in-memory passwords.
+short-lived administrator (see [Authentication](../docs/access-control-guide.md#authentication-no-password-in-any-file)); the demo accounts get random in-memory passwords.
 For every step you see the SQL, what the file expected, what MariaDB answered, and PASS or FAIL.
 
 | File | You learn |

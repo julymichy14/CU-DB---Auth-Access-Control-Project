@@ -126,8 +126,8 @@ export default function Docs() {
             code: it runs your SQL as one of those accounts.
           </p>
           <p>
-            The root <Ref href={README}>README</Ref> is the complete reference. It covers 14 experiments, findings, the
-            attack table and test results. This page is a summary.
+            The root <Ref href={README}>README</Ref> has the overview, schema, attack table, test results and limitations;
+            the details are in <Ref href={file("docs/")}>docs/</Ref>. This page is a summary.
           </p>
         </Section>
 
@@ -303,7 +303,7 @@ SHOW SESSION STATUS WHERE Variable_name IN ('Ssl_version', 'Ssl_cipher');   -- T
         <Section id="findings" title="7. Results and Findings">
           <p>
             Observed on 13.1.2. Each finding is reproduced by an experiment or a test that asserts the observed behaviour.
-            The README's section 11 has all twelve.
+            The full text of all twelve is in docs/experiments-and-findings.md.
           </p>
           <ul className="list-disc space-y-1.5 pl-5">
             <li>
@@ -337,7 +337,7 @@ SHOW SESSION STATUS WHERE Variable_name IN ('Ssl_version', 'Ssl_cipher');   -- T
           </ul>
           <p>
             Verification: <Code>make demo</Code> (24/24 role-demo actions, 108 tutorial and 373 experiment steps),{" "}
-            <Code>make test</Code> and CI on every push. See README section 13 for the current numbers and the CI link.
+            <Code>make test</Code> and CI on every push. See README section 8 for the current numbers and the CI link.
           </p>
         </Section>
 

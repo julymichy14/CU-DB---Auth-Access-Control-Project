@@ -433,7 +433,7 @@ class Lab:
                             f"{leaks} attempts answered something other than 1045 (possible user-enumeration oracle)",
                 "method": f"{runs} attempts per group, alternating: a random never-existing user name, then the real "
                           "account smith_professor, each with a random wrong password, over verified TLS. Records "
-                          "the MariaDB error code of each failed login (README finding 12)."}
+                          "the MariaDB error code of each failed login (finding 12 in the docs)."}
 
     def _bench_tls_versions(self, runs):
         """Cost of a new verified connection (TLS handshake + ED25519 login) with TLS 1.2 vs TLS 1.3."""
