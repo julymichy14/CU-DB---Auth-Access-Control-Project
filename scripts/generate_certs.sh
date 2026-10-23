@@ -40,6 +40,8 @@ cd certs
 #    -nodes means "do not password-protect the private key".
 quietly openssl req -x509 -newkey rsa:2048 -nodes -days 365 \
     -keyout ca-key.pem -out ca.pem \
+    -addext "basicConstraints=critical,CA:TRUE" \
+    -addext "keyUsage=critical,keyCertSign,cRLSign" \
     -subj "/CN=University Demo CA"
 
 # 2. The server's private key and a "certificate signing request" (CSR).
@@ -69,6 +71,8 @@ quietly openssl x509 -req -in client-req.pem -days 365 \
 # 5. A different CA that has nothing to do with our server (for the TLS attack test).
 quietly openssl req -x509 -newkey rsa:2048 -nodes -days 365 \
     -keyout untrusted-ca-key.pem -out untrusted-ca.pem \
+    -addext "basicConstraints=critical,CA:TRUE" \
+    -addext "keyUsage=critical,keyCertSign,cRLSign" \
     -subj "/CN=Some Other CA"
 
 # Clean up helper files we no longer need.

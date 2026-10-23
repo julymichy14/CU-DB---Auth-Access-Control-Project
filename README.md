@@ -7,7 +7,7 @@ A project for area 5, "Authentication and access control" for the [MariaDB stude
 **Constructor University** · **Repository:** <https://github.com/julymichy14/CU-DB---Auth-Access-Control-Project> · **Branch:** `main`
 **MariaDB version:** 13.1.2 (`13.1.2-MariaDB-ubu2604`, a preview release). [docker-compose.yml](docker-compose.yml) uses,
 by default, the exact build all results below come from:
-`quay.io/mariadb-foundation/mariadb-devel@sha256:ed1087249cadb93623dd3b11258ea9790ad8f49c328dae5a5ef726ff1cea2931`.
+`quay.io/mariadb-foundation/mariadb-devel@sha256:f4c4cbe40c3c0662e6d7287cd0b17758cdca06cff87f178f307dc7d1f65b86f8`.
 To try the newest 13.1 preview build instead, put `MARIADB_IMAGE=quay.io/mariadb-foundation/mariadb-devel:13.1` in
 `.env` (CI does this weekly in its "canary" job).
 
@@ -752,7 +752,11 @@ the metadata leaks of section 11; and a role-attached DENY next to a second sour
 
 All numbers are from real runs against `13.1.2-MariaDB-ubu2604` on macOS (arm64), on 2026-10-19, in a **fresh
 copy of the repository** in a new directory: no certificates, virtual environment, `node_modules` or server yet,
-and its own container name and port (`MARIADB_CONTAINER`, `MARIADB_PORT`), next to the developer's running copy:
+and its own container name and port (`MARIADB_CONTAINER`, `MARIADB_PORT`), next to the developer's running copy.
+The table is from the first full run (2026-10-19). On 2026-10-23 the pinned image digest was replaced, because
+quay.io stopped serving the old one (still 13.1.2-MariaDB-ubu2604); `make test`, `make demo` and `make lockout`
+were then repeated in a new fresh copy with the same results: 353 tests (349 passed, plus 4 `git`-checkout checks
+skipped because the copy was made without `.git`; they pass in a clone), 373/373 steps, lockout 13/13:
 
 | Command (fresh copy) | Result |
 |---|---|
@@ -781,8 +785,9 @@ the lab's API tests), `make demo`, `make lockout`. The `canary` job repeats the 
 runs on macOS, recorded in [docs/test-output.txt](docs/test-output.txt) and [docs/demo-output.txt](docs/demo-output.txt).
 This repository has no linked green CI run yet: the first run
 (<https://github.com/julymichy14/CU-DB---Auth-Access-Control-Project/actions/runs/39846078638>) passed lint and the
-frontend build but failed at "Start MariaDB", because the pinned image digest is no longer served by quay.io
-(`manifest unknown`). The badge at the top shows the status of the latest commit. An earlier run in a team member's
+frontend build but failed at "Start MariaDB", because the original pinned image digest was no longer served by
+quay.io (`manifest unknown`). The pin was then replaced by a digest that is served (top of this README), and the same
+commands pass locally in a fresh copy; a green run will be linked here once CI has executed the new commit. The badge at the top shows the status of the latest commit. An earlier run in a team member's
 working repository (260 tests, before the Interactive Lab existed) is not cited, because it is not this repository's.
 
 Test files:

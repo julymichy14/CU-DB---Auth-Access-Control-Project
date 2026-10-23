@@ -22,7 +22,7 @@
 
 set -euo pipefail
 
-IMAGE="${MARIADB_IMAGE:-quay.io/mariadb-foundation/mariadb-devel@sha256:ed1087249cadb93623dd3b11258ea9790ad8f49c328dae5a5ef726ff1cea2931}"
+IMAGE="${MARIADB_IMAGE:-quay.io/mariadb-foundation/mariadb-devel@sha256:f4c4cbe40c3c0662e6d7287cd0b17758cdca06cff87f178f307dc7d1f65b86f8}"
 NAME="university-lockout-$$"
 VOLUME="$NAME-data"
 FAILED=0
