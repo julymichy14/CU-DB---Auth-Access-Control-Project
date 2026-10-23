@@ -975,9 +975,9 @@ the statistics, the access matrix and the HTTP API); restoring the DENY gave 353
 | Name | Contribution |
 |---|---|
 | Alexander Vicente Lopez Yanes | Test scripts |
-| Maha Mahdi | Emotional support & AI tests |
-| Alexei Khovrenkov | Repository, README, Docker management |
-| Julissa Michelle Barahona Nunez | App files and SQL |
+| Maha Mahdi | Python, Frontend and Evaluation Tests |
+| Alexei Khovrenkov | App files and SQL|
+| Julissa Michelle Barahona Nunez | Repository, README, Docker management |
 
 ## 19. References
 
