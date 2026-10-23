@@ -84,6 +84,6 @@ attach the deny to the active role or to the accounts.
 
 ## Where this is demonstrated
 
-In <https://github.com/alexkhovrenkov/test_project_DB>: `experiments/02_multi_role_inheritance.sql` (step by
+In <https://github.com/julymichy14/CU-DB---Auth-Access-Control-Project>: `experiments/02_multi_role_inheritance.sql` (step by
 step) and `tests/test_deny_semantics.py::test_deny_in_a_nested_role_beats_grant_in_another_branch_after_flush`
 (asserts the current behaviour, and says so if a newer build fixes it).

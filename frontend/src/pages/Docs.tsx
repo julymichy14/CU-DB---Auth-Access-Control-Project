@@ -241,7 +241,7 @@ my_grades  VIEW: a student's own rows, WHERE students.db_username = the connecte
           </p>
           <p>One command does everything. It needs no password, because none exists:</p>
           <CodeBlock
-            code={`git clone ${REPOSITORY_URL}.git && cd test_project_DB
+            code={`git clone ${REPOSITORY_URL}.git && cd CU-DB---Auth-Access-Control-Project
 make lab
 # -> certificates, MariaDB 13.1 in Docker, Python venv, npm ci + build, then
 #    MariaDB Interactive Lab: http://127.0.0.1:8000/`}

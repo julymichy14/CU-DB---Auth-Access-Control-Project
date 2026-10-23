@@ -2,9 +2,9 @@ A project for area 5, "Authentication and access control" for the [MariaDB stude
 
 # Protecting a University Database with MariaDB 13.1: Roles, DENY, ED25519 and Verified TLS
 
-[![CI](https://github.com/alexkhovrenkov/test_project_DB/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/alexkhovrenkov/test_project_DB/actions/workflows/ci.yml)
+[![CI](https://github.com/julymichy14/CU-DB---Auth-Access-Control-Project/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/julymichy14/CU-DB---Auth-Access-Control-Project/actions/workflows/ci.yml)
 
-**Constructor University** · **Repository:** <https://github.com/alexkhovrenkov/test_project_DB> · **Branch:** `main`
+**Constructor University** · **Repository:** <https://github.com/julymichy14/CU-DB---Auth-Access-Control-Project> · **Branch:** `main`
 **MariaDB version:** 13.1.2 (`13.1.2-MariaDB-ubu2604`, a preview release). [docker-compose.yml](docker-compose.yml) uses,
 by default, the exact build all results below come from:
 `quay.io/mariadb-foundation/mariadb-devel@sha256:ed1087249cadb93623dd3b11258ea9790ad8f49c328dae5a5ef726ff1cea2931`.
@@ -12,7 +12,7 @@ To try the newest 13.1 preview build instead, put `MARIADB_IMAGE=quay.io/mariadb
 `.env` (CI does this weekly in its "canary" job).
 
 ```bash
-git clone https://github.com/alexkhovrenkov/test_project_DB.git && cd test_project_DB
+git clone https://github.com/julymichy14/CU-DB---Auth-Access-Control-Project.git && cd CU-DB---Auth-Access-Control-Project
 make demo      # creates certificates, starts MariaDB 13.1, runs every demonstration (no password to configure)
 make test      # 353 tests: 157 unit + 196 integration tests against the real server
 make lab       # MariaDB Interactive Lab in the browser: SQL playground as each role, live analytics, docs
@@ -122,8 +122,8 @@ Each fails differently: a stolen password table (ED25519 helps), a sniffed netwo
 CI runs everything on GitHub's x86_64 Ubuntu runners (section 13).
 
 ```bash
-git clone https://github.com/alexkhovrenkov/test_project_DB.git
-cd test_project_DB
+git clone https://github.com/julymichy14/CU-DB---Auth-Access-Control-Project.git
+cd CU-DB---Auth-Access-Control-Project
 make demo
 ```
 
@@ -775,12 +775,15 @@ Coverage per module (`make test`): `actions.py` 100 %, `admin.py` 91 %, `databas
 and build (`make frontend-test frontend`), start the pinned MariaDB image with the same `docker-compose.yml` (TLS,
 `unix_socket` root via `docker exec`, the X509 harness - nothing is mocked or skipped), `make test` (which includes
 the lab's API tests), `make demo`, `make lockout`. The `canary` job repeats the tests on the floating
-`13.1` tag and may fail without failing the workflow. Example of a complete green run, for commit `b3e8bf0`:
-<https://github.com/alexkhovrenkov/test_project_DB/actions/runs/38141173223> - lint clean, 260 passed, coverage
-95 %, role demo 24/24, 108 + 373 steps, lockout 13/13 (identical numbers in the canary job). The badge at the
-top shows the status of the latest commit. CI also caught a real problem: the run for the A2 commit failed
-once, which led to finding 12. The linked run predates the Interactive Lab; the lab and its CI steps were verified
-locally as described above, and a CI run covers them from the first push that contains them.
+`13.1` tag and may fail without failing the workflow.
+
+**CI status, stated plainly.** The numbers in this README (353 tests, role demo 24/24, lockout 13/13) come from local
+runs on macOS, recorded in [docs/test-output.txt](docs/test-output.txt) and [docs/demo-output.txt](docs/demo-output.txt).
+This repository has no linked green CI run yet: the first run
+(<https://github.com/julymichy14/CU-DB---Auth-Access-Control-Project/actions/runs/39846078638>) passed lint and the
+frontend build but failed at "Start MariaDB", because the pinned image digest is no longer served by quay.io
+(`manifest unknown`). The badge at the top shows the status of the latest commit. An earlier run in a team member's
+working repository (260 tests, before the Interactive Lab existed) is not cited, because it is not this repository's.
 
 Test files:
 

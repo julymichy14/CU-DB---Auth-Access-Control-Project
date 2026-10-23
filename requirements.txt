@@ -1,2 +1,5 @@
+Note: The following pakages are needed to run this project. 
+Please make sure to install them using pip before running the project.  
+
 pymysql[ed25519]==1.2.3
 python-dotenv==1.2.4

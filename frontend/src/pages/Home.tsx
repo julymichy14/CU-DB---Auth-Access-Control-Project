@@ -146,7 +146,7 @@ SELECT * FROM financial_records;  -- ERROR 1142`}
             Needs Docker, Python 3.10+ and Node.js 20+. No password to configure.
           </p>
           <CodeBlock
-            code={`git clone ${REPOSITORY_URL}.git && cd test_project_DB
+            code={`git clone ${REPOSITORY_URL}.git && cd CU-DB---Auth-Access-Control-Project
 make lab        # certificates, MariaDB 13.1, venv, frontend build -> http://127.0.0.1:8000`}
           />
         </Card>

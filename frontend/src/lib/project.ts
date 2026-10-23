@@ -1,5 +1,5 @@
 // Facts about the project shown in the UI. Everything else comes live from MariaDB.
-export const REPOSITORY_URL = "https://github.com/alexkhovrenkov/test_project_DB";
+export const REPOSITORY_URL = "https://github.com/julymichy14/CU-DB---Auth-Access-Control-Project";
 export const ASSIGNMENT_URL = "https://mariadb.org/bachelor_hackathon_2026-09/";
 export const AREA = { number: 5, title: "Authentication and access control" };
 export const VERIFIED_VERSION = "13.1.2-MariaDB-ubu2604";
