@@ -127,6 +127,11 @@ cd CU-DB---Auth-Access-Control-Project
 make demo
 ```
 
+> **If `make demo` stops at the image pull** (`manifest unknown`): the default server image is a preview build pinned
+> by digest, and the registry may stop serving a digest (it happened once). Run it on the floating tag instead:
+> `cp .env.example .env`, uncomment the line `MARIADB_IMAGE=quay.io/mariadb-foundation/mariadb-devel:13.1`, run
+> `make demo` again. The behaviour is the same on every 13.1.x build tested; see the canary job in section 13.
+
 `make demo` is safe to repeat and asks for nothing: there is no password to configure. It will, in order:
 generate a CA, a server certificate and a client certificate with owner-only key files
 ([scripts/generate_certs.sh](scripts/generate_certs.sh)), start MariaDB 13.1 with TLS required
@@ -754,9 +759,10 @@ All numbers are from real runs against `13.1.2-MariaDB-ubu2604` on macOS (arm64)
 copy of the repository** in a new directory: no certificates, virtual environment, `node_modules` or server yet,
 and its own container name and port (`MARIADB_CONTAINER`, `MARIADB_PORT`), next to the developer's running copy.
 The table is from the first full run (2026-10-19). On 2026-10-23 the pinned image digest was replaced, because
-quay.io stopped serving the old one (still 13.1.2-MariaDB-ubu2604); `make test`, `make demo` and `make lockout`
-were then repeated in a new fresh copy with the same results: 353 tests (349 passed, plus 4 `git`-checkout checks
-skipped because the copy was made without `.git`; they pass in a clone), 373/373 steps, lockout 13/13:
+quay.io stopped serving the old one (still 13.1.2-MariaDB-ubu2604), and the CA got `keyUsage`; `make demo`,
+`make test` and `make lockout` were then repeated in a new fresh copy with the same results (353 passed,
+373/373 steps, lockout 13/13), and [docs/demo-output.txt](docs/demo-output.txt),
+[docs/test-output.txt](docs/test-output.txt) and [docs/lockout-output.txt](docs/lockout-output.txt) are from that run:
 
 | Command (fresh copy) | Result |
 |---|---|
@@ -783,12 +789,14 @@ the lab's API tests), `make demo`, `make lockout`. The `canary` job repeats the 
 
 **CI status, stated plainly.** The numbers in this README (353 tests, role demo 24/24, lockout 13/13) come from local
 runs on macOS, recorded in [docs/test-output.txt](docs/test-output.txt) and [docs/demo-output.txt](docs/demo-output.txt).
-This repository has no linked green CI run yet: the first run
-(<https://github.com/julymichy14/CU-DB---Auth-Access-Control-Project/actions/runs/39846078638>) passed lint and the
-frontend build but failed at "Start MariaDB", because the original pinned image digest was no longer served by
-quay.io (`manifest unknown`). The pin was then replaced by a digest that is served (top of this README), and the same
-commands pass locally in a fresh copy; a green run will be linked here once CI has executed the new commit. The badge at the top shows the status of the latest commit. An earlier run in a team member's
-working repository (260 tests, before the Interactive Lab existed) is not cited, because it is not this repository's.
+The first run in this repository
+(<https://github.com/julymichy14/CU-DB---Auth-Access-Control-Project/actions/runs/39846078638>) failed at "Start
+MariaDB", because the original pinned image digest was no longer served by quay.io (`manifest unknown`). After the
+pin was replaced and `requirements.txt` was fixed, the run for commit `f0dc281` is green:
+<https://github.com/julymichy14/CU-DB---Auth-Access-Control-Project/actions/runs/39938923642> - lint clean, frontend
+type check, 10 unit tests and build, `13.1.2-MariaDB-ubu2604` on x86_64, **353 passed**, coverage 96 %, demo
+373/373 steps, lockout 13/13, and the canary job on the floating `13.1` tag green too. The badge at the top shows the
+status of the latest commit.
 
 Test files:
 
@@ -901,11 +909,6 @@ the statistics, the access matrix and the HTTP API); restoring the DENY gave 353
   chosen with `make set-password` must be set again afterwards.
 * The lab's timings come from one machine, Docker networking included, at whatever else the machine is doing:
   medians with spread and the method are reported, but this is not a controlled benchmark.
-* The project's CA certificate has no `keyUsage` extension. Python 3.13's default TLS context
-  (`VERIFY_X509_STRICT`) rejects such a CA; PyMySQL's `ssl_ca` option, used everywhere else, does not set that
-  flag. The lab's own TLS benchmark therefore clears just that flag, keeping certificate-chain and host-name
-  verification (a test checks that a foreign CA is still refused). Adding `keyUsage` in
-  [scripts/generate_certs.sh](scripts/generate_certs.sh) would remove the need.
 
 ## 16. Troubleshooting
 

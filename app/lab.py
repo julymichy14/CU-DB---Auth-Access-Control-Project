@@ -538,10 +538,6 @@ def _tls_context(version=None):
     if not TRUSTED_CA.is_file():
         raise ConfigError(f"CA certificate {TRUSTED_CA} not found. Run 'make certs'.")
     context = ssl.create_default_context(cafile=str(TRUSTED_CA))   # CERT_REQUIRED + check_hostname
-    # Python 3.13 adds VERIFY_X509_STRICT to default contexts, which rejects our CA (no keyUsage
-    # extension, see scripts/generate_certs.sh). The rest of the project verifies through PyMySQL's
-    # ssl_ca option, which does not set that flag; the lab measures exactly that verification.
-    context.verify_flags &= ~ssl.VERIFY_X509_STRICT
     if version is not None:
         context.minimum_version = context.maximum_version = version
     return context

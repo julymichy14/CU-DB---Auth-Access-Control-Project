@@ -1,6 +1,6 @@
 bash experiments/14_public_lockout.sh
 ==============================================================================
- Experiment 14: PUBLIC hard lockout and recovery (disposable server university-lockout-15958)
+ Experiment 14: PUBLIC hard lockout and recovery (disposable server university-lockout-913)
 ==============================================================================
 
 --- Part 1: DENY UPDATE ON *.* TO PUBLIC ---
