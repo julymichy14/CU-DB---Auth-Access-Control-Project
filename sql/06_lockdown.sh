@@ -18,7 +18,7 @@
 #      instead of 1045, and since real network accounts always fail with 1045,
 #      a single 1698 proves the name does not exist (user enumeration). With
 #      unix_socket as the only method of root, about 1 in 13 attempts gave 1698;
-#      with this order, none (see tests/test_account_model.py and finding 12).
+#      with this order, none (see tests/integration/test_account_model.py and finding 12).
 #      strict_password_validation (active since 05_password_policy.sql) refuses
 #      a ready-made key, so it is switched off for this single statement; the
 #      init server has no network connections, nobody else is connected.
